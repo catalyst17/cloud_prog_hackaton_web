@@ -62,7 +62,7 @@ var GS = window.GS || {};
             Value: name
         };
         var dataLineId = {
-            Name: 'line_id',
+            Name: 'custom:line_id',
             Value: line_id
         };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
