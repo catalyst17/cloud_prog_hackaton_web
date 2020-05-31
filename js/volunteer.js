@@ -144,16 +144,17 @@ function displayAllWishList(productData){
         for(var i=0; i<productData.length; i++){
             item = '<tr>' +
                 '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct" id="exampleCheck1"></div></td>' +
-                '<td>'+productData[i].pName + '</td>' +
-                '<td>'+productData[i].quantity + '</td>' +
-                '<td>'+productData[i].userName + '</td>' +
-                '<td>'+productData[i].location + '</td>' +
-                '<td>'+productData[i].distance + '</td>';
+                '<td>'+productData[i].ProductName + '</td>' +
+                '<td>'+productData[i].Quantity + '</td>' +
+                '<td>'+productData[i].Username + '</td>' +
+                '<td>'+productData[i].Location + '</td>' +
+                '<td>'+productData[i].Distance + '</td>';
 
-            if(productData[i].status == "In progress")
-                item += '<td><span class="badge badge-pill badge-warning">' + productData[i].status + '</span></td>';
-            else if(productData[i].status == "In need")
-                item += '<td><span class="badge badge-pill badge-info">' + productData[i].status + '</span></td>';
+            //TODO: remove status column, here we display only the ones in need
+            if(productData[i].Status === "In progress")
+                item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
+            else if(productData[i].Status === "In need")
+                item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
             else if(productData[i].Status === "Ready")
                 item += '<td><span class="badge badge-pill badge-success">' + productData[i].Status + '</span></td>';
             else if(productData[i].Status === "Confirmed")
@@ -161,8 +162,8 @@ function displayAllWishList(productData){
             else
                 continue;
             item += 
-                '<td>'+ productData[i].description +'</td>' +
-                '<td scope="col" style="display: none">'+ productData[i].pId +'</td>'
+                '<td>'+ productData[i].Description +'</td>' +
+                '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
             output.push(item);
         }
