@@ -141,7 +141,7 @@ var GS = window.GS || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'ride.html'; //TODO where?
+                window.location.href = 'location.html'; //TODO where?
             },
             function signinError(err) {
                 alert(err);
