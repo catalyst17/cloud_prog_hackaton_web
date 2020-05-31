@@ -16,35 +16,6 @@ GS.authToken.then(function setAuthToken(token) {
 });
 
 var wishList = [];
-<<<<<<< HEAD
-=======
-// var wishList = [
-//     {
-//         ProductName: "Apples",
-//         ID: "00012325",
-//         Quantity: 1,
-//         Status: "In Progress",
-//         Description: "",
-//         Volunteer: "Kevin"
-//     },
-//     {
-//         ProductName: "Oranges",
-//         ID: "00012321",
-//         Quantity: 6,
-//         Status: "In Need",
-//         Description: "Bigger one",
-//         Volunteer: "Kevin"
-//     },
-//     {
-//         ProductName: "Bananas",
-//         ID: "00012321",
-//         Quantity: 6,
-//         Status: "Arrived",
-//         Description: "Bigger one",
-//         Volunteer: "Kevin"
-//     }
-// ];
->>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
 
 $(document).ready(function() {
     getCurrentWishListData();
@@ -171,28 +142,16 @@ function displayCurrentList(productData){
             '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
             '<td>'+ productData[i].ProductName + '</td>' +
             '<td>'+productData[i].Quantity + '</td>';
-<<<<<<< HEAD
         if(productData[i].Status === "In progress")
             item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
-=======
-        console.log(item);
-        if(productData[i].Status === "In progress") {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAa");
-            item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
-        }
->>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
         else if(productData[i].Status === "In need")
             item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
-        else if(productData[i].Status === "Arrived")
+        else if(productData[i].Status === "Ready")
             item += '<td><span class="badge badge-pill badge-success">' + productData[i].Status + '</span></td>';
         else if(productData[i].Status === "Confirmed")
             item += '<td><span class="badge badge-pill badge-light">' + productData[i].Status + '</span></td>';
         else
             continue;
-<<<<<<< HEAD
-=======
-
->>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
         item += 
             '<td>'+ productData[i].Description +'</td>' +
             '<td>'+ productData[i].Volunteer + '</td>' +
@@ -231,14 +190,16 @@ function cleanUpListRow(btn){
     $('.product-row').find("input").val("");
 }
 
-function submitFeedback(){
+function submitFeedback(volunteer){
+
     var data = {
         feedback: $('#feedbackText').val(),
-        rating: ratingScore
+        rating: ratingScore,
+        volunteer: volunteer
     }
     $.ajax({
         method: 'POST',
-        url: _config.api.invokeUrl + '/sendFeedback',
+        url: _config.api.invokeUrl + '/send-feedback',
         headers: {
             Authorization: authToken
         },

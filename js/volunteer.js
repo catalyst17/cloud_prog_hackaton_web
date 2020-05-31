@@ -14,47 +14,47 @@ GS.authToken.then(function setAuthToken(token) {
     window.location.href = '/signin.html';
 });
 
-var shoppingList = [
-{
-    pName: "Sanitizer",
-    pId: "00012345",
-    quantity: 3,
-    userName: "Guo",
-    location: "Delta Building",
-    distance: "0.6km",
-    description: ""
-},
-{
-    pName: "Toilet Paper",
-    pId: "00012321",
-    quantity: 5,
-    userName: "Jason",
-    location: "Qing Dorm",
-    distance: "0.1km",
-    description: "Leave at the lobby, thank you!"
-}];
-var wishList = [
-    {
-        pName: "Apples",
-        pId: "00012325",
-        quantity: 1,
-        userName: "Lin",
-        location: "Delta Building",
-        distance: "0.6km",
-        status: "In Progress",
-        description: ""
-    },
-    {
-        pName: "Oranges",
-        pId: "00012321",
-        quantity: 6,
-        userName: "Lui",
-        location: "Qing Dorm",
-        distance: "0.1km",
-        status: "In Need",
-        description: "Bigger one"
-    }
-];
+var shoppingList = [];
+// {
+//     pName: "Sanitizer",
+//     pId: "00012345",
+//     quantity: 3,
+//     userName: "Guo",
+//     location: "Delta Building",
+//     distance: "0.6km",
+//     description: ""
+// },
+// {
+//     pName: "Toilet Paper",
+//     pId: "00012321",
+//     quantity: 5,
+//     userName: "Jason",
+//     location: "Qing Dorm",
+//     distance: "0.1km",
+//     description: "Leave at the lobby, thank you!"
+// }];
+var wishList = [];
+//     {
+//         pName: "Apples",
+//         pId: "00012325",
+//         quantity: 1,
+//         userName: "Lin",
+//         location: "Delta Building",
+//         distance: "0.6km",
+//         status: "In Progress",
+//         description: ""
+//     },
+//     {
+//         pName: "Oranges",
+//         pId: "00012321",
+//         quantity: 6,
+//         userName: "Lui",
+//         location: "Qing Dorm",
+//         distance: "0.1km",
+//         status: "In Need",
+//         description: "Bigger one"
+//     }
+// ];
 
 $(document).ready(function() {
     getCurrentVolunteerShoppingListData();
@@ -150,12 +150,14 @@ function displayAllWishList(productData){
                 '<td>'+productData[i].location + '</td>' +
                 '<td>'+productData[i].distance + '</td>';
 
-            if(productData[i].status == "In Progress")
+            if(productData[i].status == "In progress")
                 item += '<td><span class="badge badge-pill badge-warning">' + productData[i].status + '</span></td>';
-            else if(productData[i].status == "In Need")
+            else if(productData[i].status == "In need")
                 item += '<td><span class="badge badge-pill badge-info">' + productData[i].status + '</span></td>';
-            else if(productData[i].status == "Arrived")
-                item += '<td><span class="badge badge-pill badge-success">' + productData[i].status + '</span></td>';
+            else if(productData[i].Status === "Ready")
+                item += '<td><span class="badge badge-pill badge-success">' + productData[i].Status + '</span></td>';
+            else if(productData[i].Status === "Confirmed")
+                item += '<td><span class="badge badge-pill badge-light">' + productData[i].Status + '</span></td>';
             else
                 continue;
             item += 
@@ -177,7 +179,7 @@ function deleteProductFromShoppingList(){
         async: true,
         crossDomain: true,
         method: 'POST',
-        url: _config.api.invokeUrl + '/deleteProductFromShoppingList',
+        url: _config.api.invokeUrl + '/remove-product-from-shopping-list',
         headers: {
             Authorization: authToken
         },
