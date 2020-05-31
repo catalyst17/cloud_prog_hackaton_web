@@ -95,7 +95,7 @@ GS.map = GS.map || {};
         console.log('Location updated');
         animateUpdate(function animateCallback() {
             displayUpdate('You have updated your location!');
-            setTimeout(() => {  window.location.href = 'unicorns.html'; }, 1000);
+            setTimeout(() => {  window.location.href = 'userPage.html'; }, 1000);
             GS.map.unsetLocation();
             $('#request').prop('disabled', 'disabled');
             $('#request').text('Select location');
