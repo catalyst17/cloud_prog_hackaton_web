@@ -83,7 +83,7 @@ function addProduct() {
             Authorization: authToken,
             'Access-Control-Allow-Origin': '*',
         },
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
@@ -105,7 +105,7 @@ function deleteProduct() {
         headers: {
             Authorization: authToken
         },
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
@@ -127,7 +127,7 @@ function confirmProduct() {
             Authorization: authToken
         },
         'Access-Control-Allow-Origin': '*',
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
@@ -224,7 +224,7 @@ function submitFeedback(){
             Authorization: authToken
         },
         'Access-Control-Allow-Origin': '*',
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);

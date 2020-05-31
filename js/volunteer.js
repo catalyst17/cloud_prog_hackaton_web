@@ -59,8 +59,7 @@ var wishList = [
 $(document).ready(function() {
     getCurrentVolunteerShoppingListData();
     getAllWishListData();
-    displayCurrentShoppingList(shoppingList);
-    displayAllWishList(wishList);
+
     $("#addProductBtn").click(function(){
         updateCurrentList("AAA",3,"asdf");
     });
@@ -118,23 +117,6 @@ function getAllWishListData(){
         }
     });
 }
-
-function updateCurrentShoppingList(productData){
-    var output = '<tr>' +
-            '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct" id="exampleCheck1"></div></td>' +
-            '<td>'+productData.pName + '</td>' +
-            '<td>'+productData.quantity + '</td>' +
-            '<td>'+productData.userName + '</td>' +
-            '<td>'+productData.location + '</td>' +
-            '<td>'+productData.distance + '</td>' +
-            '<td>'+ productData.description +'</td>' +
-            '<td></td>' +
-        '</tr>';
-
-    // finally combine our output list into one string of html and put it on the page
-    $('#myCurrentShoppingListTable').append(output);
-}
-
 
 function displayCurrentShoppingList(productData){
     var output = [];
@@ -206,7 +188,7 @@ function deleteProductFromShoppingList(){
             Authorization: authToken
         },
         'Access-Control-Allow-Origin': '*',
-        data: data,
+        data: JSON.stringify(data),
         success: function(response) {
             console.log(response);
             displayCurrentList(response);
@@ -221,16 +203,15 @@ function completeProductFromShoppingList(){
         async: true,
         crossDomain: true,
         method: 'POST',
-        url: _config.api.invokeUrl + '/completeProductFromShoppingList',
+        url: _config.api.invokeUrl + '/complete-products',
         headers: {
             Authorization: authToken
         },
         'Access-Control-Allow-Origin': '*',
-        data: data,
+        data: JSON.stringify(data),
         success: function(response) {
             console.log(response);
-            displayCurrentList(response);
-            // TODO: ask rating
+            getCurrentVolunteerShoppingListData();
       }
     });
 }
@@ -247,7 +228,7 @@ function takeProductToShoppingList(){
             Authorization: authToken
         },
         'Access-Control-Allow-Origin': '*',
-        data: data,
+        data: JSON.stringify(data),
         success: function(response) {
             console.log(response);
             displayCurrentList(response);
