@@ -1,33 +1,34 @@
 "use strict";!function(){var n=$("html"),t=function(){$(".btn-menu").on("click",function(t){t.preventDefault(),n.toggleClass("menu-opened")})},e=function(){t()};e()}();
 
-// send notification when the goods arrive
-
 // display users page
 $(document).ready(function () {
-    $('#participants').multiInput({
-        json: true,
-        input: $('<div class="row inputElement">\n' +
-            '<div class="multiinput-title col-xs-12">Teilnehmer <span class="number">1</span></div>\n' +
-            '<div class="form-group col-xs-6">\n' +
-            '<input class="form-control" name="tn_firstname" placeholder="Vorname" type="text">\n' +
-            '</div>\n' +
-            '<div class="form-group col-xs-6">\n' +
-            '<input class="form-control" name="tn_lastname" placeholder="Nachname" type="text">\n' +
-            '</div>\n' +
-            '</div>\n'),
-        limit: 10,
-        onElementAdd: function (el, plugin) {
-            console.log(plugin.elementCount);
-        },
-        onElementRemove: function (el, plugin) {
-            console.log(plugin.elementCount);
-        }
-    });
+  getUserInfo();
 });
-// display volunteers page
 
-// get user's location
-function getUserLocation(){
+var userInfo = {};
+
+// initialize user information
+function getUserInfo(){
+  $.ajax({
+    async: true,
+    method: 'GET',
+    url: _config.api.invokeUrl + '/user-info',
+    headers: {
+        Authorization: authToken
+    },
+    success: function(response) {
+        console.log(response);
+        userInfo = response;
+        // displayUserInfo(userInfo);
+    },
+    error: function ajaxError(jqXHR, textStatus, errorThrown) {
+        console.error('Error requesting add product: ', textStatus, ', Details: ', errorThrown);
+        console.error('Response: ', jqXHR.responseText);
+    }
+});
+}
+
+function displayUserInfo(){
 
 }
 
