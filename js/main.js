@@ -1,34 +1,77 @@
 "use strict";!function(){var n=$("html"),t=function(){$(".btn-menu").on("click",function(t){t.preventDefault(),n.toggleClass("menu-opened")})},e=function(){t()};e()}();
 
-// send notification when the goods arrive
+var GS = window.GS || {};
+GS.map = GS.map || {};
+
+var authToken;
+GS.authToken.then(function setAuthToken(token) {
+    if (token) {
+        authToken = token;
+    } else {
+        window.location.href = '/signin.html';
+    }
+}).catch(function handleTokenError(error) {
+    alert(error);
+    window.location.href = '/signin.html';
+});
+
+var poolData = {
+  UserPoolId: _config.cognito.userPoolId,
+  ClientId: _config.cognito.userPoolClientId
+};
+
+var userPool;
+userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+if (typeof AWSCognito !== 'undefined') {
+    AWSCognito.config.region = _config.cognito.region;
+}
+
+if (!(_config.cognito.userPoolId &&
+    _config.cognito.userPoolClientId &&
+    _config.cognito.region)) {
+  $('#noCognitoMessage').show();
+}
 
 // display users page
 $(document).ready(function () {
-    $('#participants').multiInput({
-        json: true,
-        input: $('<div class="row inputElement">\n' +
-            '<div class="multiinput-title col-xs-12">Teilnehmer <span class="number">1</span></div>\n' +
-            '<div class="form-group col-xs-6">\n' +
-            '<input class="form-control" name="tn_firstname" placeholder="Vorname" type="text">\n' +
-            '</div>\n' +
-            '<div class="form-group col-xs-6">\n' +
-            '<input class="form-control" name="tn_lastname" placeholder="Nachname" type="text">\n' +
-            '</div>\n' +
-            '</div>\n'),
-        limit: 10,
-        onElementAdd: function (el, plugin) {
-            console.log(plugin.elementCount);
-        },
-        onElementRemove: function (el, plugin) {
-            console.log(plugin.elementCount);
-        }
-    });
+  getUserInfoFromCognito();
 });
-// display volunteers page
 
-// get user's location
-function getUserLocation(){
+var userInfo = {};
 
+function getUserInfoFromCognito(){
+  var cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser != null) {
+    cognitoUser.getSession(function(err, session) {
+        if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+        }
+        console.log('session validity: ' + session.isValid());
+ 
+        // NOTE: getSession must be called to authenticate user before calling getUserAttributes
+        cognitoUser.getUserAttributes(function(err, attributes) {
+            if (err) {
+                console.log(err);
+            } else {
+                userInfo = {
+                  "name": attributes[4].Value,
+                  "email": attributes[6].Value,
+                  "custom:longtitude": attributes[2].Value,
+                  "custom:latitude": attributes[3].Value,
+                  "custom:line_id": attributes[5].Value
+                }
+                console.log(userInfo);
+                displayUserInfo();
+            }
+        });
+    });
+  }
+}
+
+function displayUserInfo(){
+  $('#username').html(userInfo.name);
 }
 
 // select all checked products
