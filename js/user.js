@@ -1,19 +1,19 @@
 /*global GS _config*/
 
-var GS = window.GS || {};
-GS.map = GS.map || {};
+// var GS = window.GS || {};
+// GS.map = GS.map || {};
 
-var authToken;
-GS.authToken.then(function setAuthToken(token) {
-    if (token) {
-        authToken = token;
-    } else {
-        window.location.href = '/signin.html';
-    }
-}).catch(function handleTokenError(error) {
-    alert(error);
-    window.location.href = '/signin.html';
-});
+// var authToken;
+// GS.authToken.then(function setAuthToken(token) {
+//     if (token) {
+//         authToken = token;
+//     } else {
+//         window.location.href = '/signin.html';
+//     }
+// }).catch(function handleTokenError(error) {
+//     alert(error);
+//     window.location.href = '/signin.html';
+// });
 
 var wishList = [];
 

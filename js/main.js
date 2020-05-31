@@ -1,35 +1,77 @@
 "use strict";!function(){var n=$("html"),t=function(){$(".btn-menu").on("click",function(t){t.preventDefault(),n.toggleClass("menu-opened")})},e=function(){t()};e()}();
 
+var GS = window.GS || {};
+GS.map = GS.map || {};
+
+var authToken;
+GS.authToken.then(function setAuthToken(token) {
+    if (token) {
+        authToken = token;
+    } else {
+        window.location.href = '/signin.html';
+    }
+}).catch(function handleTokenError(error) {
+    alert(error);
+    window.location.href = '/signin.html';
+});
+
+var poolData = {
+  UserPoolId: _config.cognito.userPoolId,
+  ClientId: _config.cognito.userPoolClientId
+};
+
+var userPool;
+userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+if (typeof AWSCognito !== 'undefined') {
+    AWSCognito.config.region = _config.cognito.region;
+}
+
+if (!(_config.cognito.userPoolId &&
+    _config.cognito.userPoolClientId &&
+    _config.cognito.region)) {
+  $('#noCognitoMessage').show();
+}
+
 // display users page
 $(document).ready(function () {
-  getUserInfo();
+  getUserInfoFromCognito();
 });
 
 var userInfo = {};
 
-// initialize user information
-function getUserInfo(){
-  $.ajax({
-    async: true,
-    method: 'GET',
-    url: _config.api.invokeUrl + '/user-info',
-    headers: {
-        Authorization: authToken
-    },
-    success: function(response) {
-        console.log(response);
-        userInfo = response;
-        // displayUserInfo(userInfo);
-    },
-    error: function ajaxError(jqXHR, textStatus, errorThrown) {
-        console.error('Error requesting add product: ', textStatus, ', Details: ', errorThrown);
-        console.error('Response: ', jqXHR.responseText);
-    }
-});
+function getUserInfoFromCognito(){
+  var cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser != null) {
+    cognitoUser.getSession(function(err, session) {
+        if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+        }
+        console.log('session validity: ' + session.isValid());
+ 
+        // NOTE: getSession must be called to authenticate user before calling getUserAttributes
+        cognitoUser.getUserAttributes(function(err, attributes) {
+            if (err) {
+                console.log(err);
+            } else {
+                userInfo = {
+                  "name": attributes[4].Value,
+                  "email": attributes[6].Value,
+                  "custom:longtitude": attributes[2].Value,
+                  "custom:latitude": attributes[3].Value,
+                  "custom:line_id": attributes[5].Value
+                }
+                console.log(userInfo);
+                displayUserInfo();
+            }
+        });
+    });
+  }
 }
 
 function displayUserInfo(){
-
+  $('#username').html(userInfo.name);
 }
 
 // select all checked products
