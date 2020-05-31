@@ -7,7 +7,6 @@ var authToken;
 GS.authToken.then(function setAuthToken(token) {
     if (token) {
         authToken = token;
-        console.log(authToken);
     } else {
         window.location.href = '/signin.html';
     }
@@ -16,36 +15,37 @@ GS.authToken.then(function setAuthToken(token) {
     window.location.href = '/signin.html';
 });
 
-var wishList = [
-    {
-        ProductName: "Apples",
-        ID: "00012325",
-        Quantity: 1,
-        Status: "In Progress",
-        Description: "",
-        Volunteer: "Kevin"
-    },
-    {
-        ProductName: "Oranges",
-        ID: "00012321",
-        Quantity: 6,
-        Status: "In Need",
-        Description: "Bigger one",
-        Volunteer: "Kevin"
-    },
-    {
-        ProductName: "Bananas",
-        ID: "00012321",
-        Quantity: 6,
-        Status: "Arrived",
-        Description: "Bigger one",
-        Volunteer: "Kevin"
-    }
-];
+var wishList = [];
+// var wishList = [
+//     {
+//         ProductName: "Apples",
+//         ID: "00012325",
+//         Quantity: 1,
+//         Status: "In Progress",
+//         Description: "",
+//         Volunteer: "Kevin"
+//     },
+//     {
+//         ProductName: "Oranges",
+//         ID: "00012321",
+//         Quantity: 6,
+//         Status: "In Need",
+//         Description: "Bigger one",
+//         Volunteer: "Kevin"
+//     },
+//     {
+//         ProductName: "Bananas",
+//         ID: "00012321",
+//         Quantity: 6,
+//         Status: "Arrived",
+//         Description: "Bigger one",
+//         Volunteer: "Kevin"
+//     }
+// ];
 
 $(document).ready(function() {
     getCurrentWishListData();
-    displayCurrentList(wishList);
+
     $("#addProductBtn").click(function(){
         addProduct();
     });
@@ -58,6 +58,7 @@ $(document).ready(function() {
 });
 
 function addProduct() {
+    getCurrentWishListData();
     var data = [];
     var productList = $(".product-row");
 
@@ -107,7 +108,7 @@ function deleteProduct() {
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
-            updateCurrentList(pName, quantity, description);
+            getCurrentWishListData();
         },
         error: function ajaxError(jqXHR, textStatus, errorThrown) {
             console.error('Error requesting delete product: ', textStatus, ', Details: ', errorThrown);
@@ -120,7 +121,7 @@ function confirmProduct() {
     var data = checkProduct('#myCurrentListTable');
     $.ajax({
         method: 'POST',
-        url: _config.api.invokeUrl + '/confirmProduct',
+        url: _config.api.invokeUrl + '/confirm-products',
         headers: {
             Authorization: authToken
         },
@@ -148,6 +149,7 @@ function getCurrentWishListData(){
             Authorization: authToken
         },
         success: function(response) {
+            console.log(response);
             wishList = response;
             displayCurrentList(wishList);
         },
@@ -161,7 +163,6 @@ function getCurrentWishListData(){
 function displayCurrentList(productData){
     var output = [];
     var item = '';
-    console.log(productData);
 
     for(var i=0; i<productData.length; i++){
         item = '<tr>' +
@@ -169,17 +170,17 @@ function displayCurrentList(productData){
             '<td>'+ productData[i].ProductName + '</td>' +
             '<td>'+productData[i].Quantity + '</td>';
         console.log(item);
-        if(productData[i].Status === "In Progress") {
+        if(productData[i].Status === "In progress") {
             console.log("AAAAAAAAAAAAAAAAAAAAAAAAa");
             item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
         }
-        else if(productData[i].Status === "In Need")
+        else if(productData[i].Status === "In need")
             item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
         else if(productData[i].Status === "Arrived")
             item += '<td><span class="badge badge-pill badge-success">' + productData[i].Status + '</span></td>';
         else
             continue;
-        console.log(item);
+
         item += 
             '<td>'+ productData[i].Description +'</td>' +
             '<td>'+ productData[i].Volunteer + '</td>' +
@@ -189,7 +190,7 @@ function displayCurrentList(productData){
         output.push(item);
     }
     // finally combine our output list into one string of html and put it on the page
-    console.log(output);
+
     $('#myCurrentListTable').empty();
     $('#myCurrentListTable').append(output);
 }
