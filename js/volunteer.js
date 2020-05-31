@@ -150,9 +150,9 @@ function displayAllWishList(productData){
                 '<td>'+productData[i].location + '</td>' +
                 '<td>'+productData[i].distance + '</td>';
 
-            if(productData[i].status == "In Progress")
+            if(productData[i].status == "In progress")
                 item += '<td><span class="badge badge-pill badge-warning">' + productData[i].status + '</span></td>';
-            else if(productData[i].status == "In Need")
+            else if(productData[i].status == "In need")
                 item += '<td><span class="badge badge-pill badge-info">' + productData[i].status + '</span></td>';
             else if(productData[i].status == "Arrived")
                 item += '<td><span class="badge badge-pill badge-success">' + productData[i].status + '</span></td>';

@@ -16,8 +16,6 @@ GS.authToken.then(function setAuthToken(token) {
 });
 
 var wishList = [];
-<<<<<<< HEAD
-=======
 // var wishList = [
 //     {
 //         ProductName: "Apples",
@@ -44,7 +42,6 @@ var wishList = [];
 //         Volunteer: "Kevin"
 //     }
 // ];
->>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
 
 $(document).ready(function() {
     getCurrentWishListData();
@@ -171,16 +168,8 @@ function displayCurrentList(productData){
             '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
             '<td>'+ productData[i].ProductName + '</td>' +
             '<td>'+productData[i].Quantity + '</td>';
-<<<<<<< HEAD
         if(productData[i].Status === "In progress")
             item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
-=======
-        console.log(item);
-        if(productData[i].Status === "In progress") {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAa");
-            item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
-        }
->>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
         else if(productData[i].Status === "In need")
             item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
         else if(productData[i].Status === "Arrived")
@@ -189,10 +178,6 @@ function displayCurrentList(productData){
             item += '<td><span class="badge badge-pill badge-light">' + productData[i].Status + '</span></td>';
         else
             continue;
-<<<<<<< HEAD
-=======
-
->>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
         item += 
             '<td>'+ productData[i].Description +'</td>' +
             '<td>'+ productData[i].Volunteer + '</td>' +
