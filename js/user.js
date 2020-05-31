@@ -195,7 +195,8 @@ function submitFeedback(volunteer){
     var data = {
         feedback: $('#feedbackText').val(),
         rating: ratingScore,
-        volunteer: volunteer
+        volunteer: volunteer,
+        username: userinfo.name
     }
     $.ajax({
         method: 'POST',
