@@ -16,10 +16,39 @@ GS.authToken.then(function setAuthToken(token) {
 });
 
 var wishList = [];
+<<<<<<< HEAD
+=======
+// var wishList = [
+//     {
+//         ProductName: "Apples",
+//         ID: "00012325",
+//         Quantity: 1,
+//         Status: "In Progress",
+//         Description: "",
+//         Volunteer: "Kevin"
+//     },
+//     {
+//         ProductName: "Oranges",
+//         ID: "00012321",
+//         Quantity: 6,
+//         Status: "In Need",
+//         Description: "Bigger one",
+//         Volunteer: "Kevin"
+//     },
+//     {
+//         ProductName: "Bananas",
+//         ID: "00012321",
+//         Quantity: 6,
+//         Status: "Arrived",
+//         Description: "Bigger one",
+//         Volunteer: "Kevin"
+//     }
+// ];
+>>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
 
 $(document).ready(function() {
     getCurrentWishListData();
-    displayCurrentList(wishList);
+
     $("#addProductBtn").click(function(){
         addProduct();
     });
@@ -32,6 +61,7 @@ $(document).ready(function() {
 });
 
 function addProduct() {
+    getCurrentWishListData();
     var data = [];
     var productList = $(".product-row");
 
@@ -121,6 +151,7 @@ function getCurrentWishListData(){
             Authorization: authToken
         },
         success: function(response) {
+            console.log(response);
             wishList = response;
             displayCurrentList(wishList);
         },
@@ -140,8 +171,16 @@ function displayCurrentList(productData){
             '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
             '<td>'+ productData[i].ProductName + '</td>' +
             '<td>'+productData[i].Quantity + '</td>';
+<<<<<<< HEAD
         if(productData[i].Status === "In progress")
             item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
+=======
+        console.log(item);
+        if(productData[i].Status === "In progress") {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAa");
+            item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
+        }
+>>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
         else if(productData[i].Status === "In need")
             item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
         else if(productData[i].Status === "Arrived")
@@ -150,6 +189,10 @@ function displayCurrentList(productData){
             item += '<td><span class="badge badge-pill badge-light">' + productData[i].Status + '</span></td>';
         else
             continue;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4ab5310c7c5574d1c91cb0ce95940694c290136e
         item += 
             '<td>'+ productData[i].Description +'</td>' +
             '<td>'+ productData[i].Volunteer + '</td>' +
@@ -158,7 +201,7 @@ function displayCurrentList(productData){
         output.push(item);
     }
     // finally combine our output list into one string of html and put it on the page
-    console.log(output);
+
     $('#myCurrentListTable').empty();
     $('#myCurrentListTable').append(output);
 }
