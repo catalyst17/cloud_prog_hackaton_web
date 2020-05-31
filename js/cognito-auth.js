@@ -52,14 +52,24 @@ var GS = window.GS || {};
      * Cognito User Pool functions
      */
 
-    function register(email, password, onSuccess, onFailure) {
+    function register(email, password, name, line_id, onSuccess, onFailure) {
         var dataEmail = {
             Name: 'email',
             Value: email
         };
+        var dataName = {
+            Name: 'name',
+            Value: name
+        };
+        var dataLineId = {
+            Name: 'line_id',
+            Value: line_id
+        };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+        var attributeName = new AmazonCognitoIdentity.CognitoUserAttribute(dataName);
+        var attributeLineId = new AmazonCognitoIdentity.CognitoUserAttribute(dataLineId);
 
-        userPool.signUp(toUsername(email), password, [attributeEmail], null,
+        userPool.signUp(toUsername(email), password, [attributeEmail, attributeName, attributeLineId], null,
             function signUpCallback(err, result) {
                 if (!err) {
                     onSuccess(result);
@@ -121,7 +131,7 @@ var GS = window.GS || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'ride.html';
+                window.location.href = 'ride.html'; //TODO where?
             },
             function signinError(err) {
                 alert(err);
@@ -130,7 +140,9 @@ var GS = window.GS || {};
     }
 
     function handleRegister(event) {
+        var name = $('#nameInputRegister').val();
         var email = $('#emailInputRegister').val();
+        var line_id = $('#LineIdInputRegister').val();
         var password = $('#passwordInputRegister').val();
         var password2 = $('#password2InputRegister').val();
 
@@ -148,7 +160,7 @@ var GS = window.GS || {};
         event.preventDefault();
 
         if (password === password2) {
-            register(email, password, onSuccess, onFailure);
+            register(email, password, name, line_id, onSuccess, onFailure);
         } else {
             alert('Passwords do not match');
         }
