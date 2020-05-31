@@ -76,14 +76,11 @@ $(document).ready(function() {
 
 function getCurrentVolunteerShoppingListData(){
     $.ajax({
-        async: true,
-        crossDomain: true,
-        method: 'POST',
-        url: _config.api.invokeUrl + '/getCurrentVolunteerShoppingList',
+        method: 'GET',
+        url: _config.api.invokeUrl + '/shopping-list',
         headers: {
             Authorization: authToken
         },
-        'Access-Control-Allow-Origin': '*',
         success: function(response) {
             console.log(response);
             shoppingList = response;
@@ -98,14 +95,11 @@ function getCurrentVolunteerShoppingListData(){
 
 function getAllWishListData(){
     $.ajax({
-        async: true,
-        crossDomain: true,
-        method: 'POST',
-        url: _config.api.invokeUrl + '/getAllWishList',
+        method: 'GET',
+        url: _config.api.invokeUrl + '/wish-lists',
         headers: {
             Authorization: authToken
         },
-        'Access-Control-Allow-Origin': '*',
         success: function(response) {
             console.log(response);
             wishList = response;

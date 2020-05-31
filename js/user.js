@@ -7,7 +7,6 @@ var authToken;
 GS.authToken.then(function setAuthToken(token) {
     if (token) {
         authToken = token;
-        console.log(authToken);
     } else {
         window.location.href = '/signin.html';
     }
@@ -16,32 +15,7 @@ GS.authToken.then(function setAuthToken(token) {
     window.location.href = '/signin.html';
 });
 
-var wishList = [
-    {
-        ProductName: "Apples",
-        ID: "00012325",
-        Quantity: 1,
-        Status: "In Progress",
-        Description: "",
-        Volunteer: "Kevin"
-    },
-    {
-        ProductName: "Oranges",
-        ID: "00012321",
-        Quantity: 6,
-        Status: "In Need",
-        Description: "Bigger one",
-        Volunteer: "Kevin"
-    },
-    {
-        ProductName: "Bananas",
-        ID: "00012321",
-        Quantity: 6,
-        Status: "Arrived",
-        Description: "Bigger one",
-        Volunteer: "Kevin"
-    }
-];
+var wishList = [];
 
 $(document).ready(function() {
     getCurrentWishListData();
@@ -99,7 +73,7 @@ function deleteProduct() {
     var data = checkProduct('#myCurrentListTable');
     $.ajax({
         method: 'POST',
-        url: _config.api.invokeUrl + '/deleteProduct',
+        url: _config.api.invokeUrl + '/delete-products',
         headers: {
             Authorization: authToken
         },
@@ -107,7 +81,7 @@ function deleteProduct() {
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
-            updateCurrentList(pName, quantity, description);
+            getCurrentWishListData();
         },
         error: function ajaxError(jqXHR, textStatus, errorThrown) {
             console.error('Error requesting delete product: ', textStatus, ', Details: ', errorThrown);
@@ -120,11 +94,10 @@ function confirmProduct() {
     var data = checkProduct('#myCurrentListTable');
     $.ajax({
         method: 'POST',
-        url: _config.api.invokeUrl + '/confirmProduct',
+        url: _config.api.invokeUrl + '/confirm-products',
         headers: {
             Authorization: authToken
         },
-        'Access-Control-Allow-Origin': '*',
         data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
@@ -161,31 +134,27 @@ function getCurrentWishListData(){
 function displayCurrentList(productData){
     var output = [];
     var item = '';
-    console.log(productData);
 
     for(var i=0; i<productData.length; i++){
         item = '<tr>' +
             '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
             '<td>'+ productData[i].ProductName + '</td>' +
             '<td>'+productData[i].Quantity + '</td>';
-        console.log(item);
-        if(productData[i].Status === "In Progress") {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAa");
+        if(productData[i].Status === "In progress")
             item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
-        }
-        else if(productData[i].Status === "In Need")
+        else if(productData[i].Status === "In need")
             item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
         else if(productData[i].Status === "Arrived")
             item += '<td><span class="badge badge-pill badge-success">' + productData[i].Status + '</span></td>';
+        else if(productData[i].Status === "Confirmed")
+            item += '<td><span class="badge badge-pill badge-light">' + productData[i].Status + '</span></td>';
         else
             continue;
-        console.log(item);
         item += 
             '<td>'+ productData[i].Description +'</td>' +
             '<td>'+ productData[i].Volunteer + '</td>' +
             '<td scope="col" style="display: none">'+ productData[i].ID.toString() +'</td>'
         '</tr>';
-        console.log(item);
         output.push(item);
     }
     // finally combine our output list into one string of html and put it on the page
