@@ -132,6 +132,7 @@ var GS = window.GS || {};
         $('#signinForm').submit(handleSignin);
         $('#registrationForm').submit(handleRegister);
         $('#verifyForm').submit(handleVerify);
+        $('#signoutBtn').click(handleSignout);
     });
 
     function handleSignin(event) {
@@ -141,12 +142,18 @@ var GS = window.GS || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'ride.html'; //TODO where?
+                window.location.href = 'volunteerPage.html';
             },
             function signinError(err) {
                 alert(err);
             }
         );
+    }
+
+    function handleSignout(event){
+        event.preventDefault();
+        userPool.getCurrentUser().signOut();
+        window.location.href = 'signin.html'; 
     }
 
     function handleRegister(event) {

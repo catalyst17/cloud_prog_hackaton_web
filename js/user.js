@@ -70,14 +70,15 @@ function addProduct() {
         }
         data.push(product);
     }
-    console.log(data);
-
+    console.log(authToken);
+    console.log(_config.api.invokeUrl);
     $.ajax({
-        method: 'POST',
-        url: _config.api.invokeUrl + '/createproducts',
+        type: 'POST',
+        url: 'https://kcjihhoe69.execute-api.us-east-1.amazonaws.com/latest/test',
+        crossDomain: true,
         headers: {
             Authorization: authToken,
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
         },
         data: data,
         contentType: 'application/json',
@@ -92,6 +93,31 @@ function addProduct() {
         }
     });
 }
+
+function requestUnicorn() {
+    $.ajax({
+        method: 'POST',
+        url: _config.api.invokeUrl + '/ride',
+        headers: {
+            "content-type": "application/json; charset=UTF-8"
+        },
+        data: JSON.stringify({
+            PickupLocation: {
+                Latitude: 20.1234,
+                Longitude: 120.1234
+            }
+        }),
+        contentType: 'application/json',
+        success: function(){ console.log("success")},
+        error: function ajaxError(jqXHR, textStatus, errorThrown) {
+            console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
+            console.error('Response: ', jqXHR.responseText);
+            alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+        }
+    });
+}
+
+
 
 function deleteProduct() {
     var data = checkProduct('#myCurrentListTable');

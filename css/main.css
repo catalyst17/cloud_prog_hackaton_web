@@ -59,3 +59,11 @@ h4 {
   .rating-stars ul > li.star.selected > i.fa {
     color: dodgerblue;
   }
+
+  .sketch{
+      text-align: center;
+  }
+
+  .sketch > img{
+      height: 320px;
+  } 
