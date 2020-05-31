@@ -44,13 +44,16 @@ var wishList = [
 ];
 
 $(document).ready(function() {
-    // getCurrentUserListData();
+    getCurrentWishListData();
     displayCurrentList(wishList);
     $("#addProductBtn").click(function(){
         addProduct();
     });
     $('#removeProductBtn').click(function(){
         deleteProduct();
+    })
+    $('#confirmProductBtn').click(function(){
+        confirmProduct();
     })
 });
 

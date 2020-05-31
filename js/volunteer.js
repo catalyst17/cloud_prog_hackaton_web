@@ -57,8 +57,8 @@ var wishList = [
 ];
 
 $(document).ready(function() {
-    // getCurrentVolunteerShoppingListData();
-    // getAllWishListData();
+    getCurrentVolunteerShoppingListData();
+    getAllWishListData();
     displayCurrentShoppingList(shoppingList);
     displayAllWishList(wishList);
     $("#addProductBtn").click(function(){
