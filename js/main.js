@@ -48,10 +48,6 @@ function checkProduct(container){
     return checkProduct;
 }
 
-// Showing notification
-if($(".toast").length)
-    $('.toast').toast('show');
-
 $('#stars li').on('mouseover', function(){
     var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
    
