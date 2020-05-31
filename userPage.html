@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" rel="stylesheet">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href="./css/jq.multiinput.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC|Noto+Serif+TC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="#">Shopping Helper</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <span class="nav-link">Login: <span id="id-input">Jennifer</span></span>
+            </li>
+            <li class="nav-item active">
+              <button class="btn btn-dark" onclick="javascript:getUserLocation()"><i class="fa fa-location-arrow" aria-hidden="true"></i><span id="id-input">大學路50號</span></button>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./userPage.html">Users</a>
+            </li>
+                <a class="nav-link" href="./volunteerPage.html">Volunteers</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h1>My Current Wish List</h1>
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                            <th scope="col">Select</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Volunteer</th>
+                        </tr>
+                      </thead>
+                      <tbody id="myCurrentListTable">
+                        <tr>
+                            <td>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input checkProduct" id="exampleCheck1">
+                                </div>
+                            </td>
+                            <td>Apple</td>
+                            <td>1</td>
+                            <td><span class="badge badge-pill badge-warning">In Progress</span></td>
+                            <td></td>
+                            <td>Kuo</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button type="button" class="btn btn-secondary">Remove</button>
+                  </div>
+                </div>
+                <div>
+                    <h4>Add New Product to the List</h4>
+                    <form>
+                        <div class="form-row">
+                          <div class="col-md-4">
+                            <label for="inputEmail4">Product Name</label>
+                            <input type="text" class="form-control" placeholder="ex. Apple">
+                          </div>
+                          <div class="col-md-1">
+                            <label for="inputEmail4">Quantity</label>
+                            <input type="text" class="form-control" placeholder="0">
+                          </div>
+                          <div class="col-md-7">
+                            <label for="inputEmail4">Description</label>
+                            <input type="text" class="form-control" placeholder="">
+                          </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-primary" id="addProductBtn">Add To List</button>
+                </div>
+          </div>
+          
+      </div>
+      
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="js/jq.multiinput.min.js"></script>
+  <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+  <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+  <script src="https://js.arcgis.com/4.3/"></script>
+  <script src="js/config.js"></script>
+  <script src="js/cognito-auth.js"></script>
+  <script src="js/esri-map.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/user.js"></script>
+  </body>
+</html>
