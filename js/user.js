@@ -7,6 +7,7 @@ var authToken;
 GS.authToken.then(function setAuthToken(token) {
     if (token) {
         authToken = token;
+        console.log(authToken);
     } else {
         window.location.href = '/signin.html';
     }
@@ -43,13 +44,16 @@ var wishList = [
 ];
 
 $(document).ready(function() {
-    // getCurrentUserListData();
+    getCurrentWishListData();
     displayCurrentList(wishList);
     $("#addProductBtn").click(function(){
         addProduct();
     });
     $('#removeProductBtn').click(function(){
         deleteProduct();
+    })
+    $('#confirmProductBtn').click(function(){
+        confirmProduct();
     })
 });
 
@@ -91,31 +95,6 @@ function addProduct() {
     });
 }
 
-// function requestUnicorn() {
-//     $.ajax({
-//         method: 'POST',
-//         url: _config.api.invokeUrl + '/ride',
-//         headers: {
-//             "content-type": "application/json; charset=UTF-8"
-//         },
-//         data: JSON.stringify({
-//             PickupLocation: {
-//                 Latitude: 20.1234,
-//                 Longitude: 120.1234
-//             }
-//         }),
-//         contentType: 'application/json',
-//         success: function(){ console.log("success")},
-//         error: function ajaxError(jqXHR, textStatus, errorThrown) {
-//             console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-//             console.error('Response: ', jqXHR.responseText);
-//             alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-//         }
-//     });
-// }
-
-
-
 function deleteProduct() {
     var data = checkProduct('#myCurrentListTable');
     $.ajax({
@@ -124,7 +103,7 @@ function deleteProduct() {
         headers: {
             Authorization: authToken
         },
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
@@ -146,11 +125,12 @@ function confirmProduct() {
             Authorization: authToken
         },
         'Access-Control-Allow-Origin': '*',
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
-            updateCurrentList(pName, quantity, description);
+            getCurrentWishListData();
+            promptRating(response);
         },
         error: function ajaxError(jqXHR, textStatus, errorThrown) {
             console.error('Error requesting delete product: ', textStatus, ', Details: ', errorThrown);
@@ -251,7 +231,7 @@ function submitFeedback(){
             Authorization: authToken
         },
         'Access-Control-Allow-Origin': '*',
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
@@ -266,6 +246,14 @@ function submitFeedback(){
 }
 
 var ratingScore = 0;
-function setRatingScore(setRatingScore){
+function setRatingScore(score){
     ratingScore = score;
+}
+
+function promptRating(volunteerList){
+    var toast = $('.toast').find('.volunteer');
+    for(var i=0; i<volunteerList.length; i++){
+        toast.eq(i).html(volunteerList[i]);
+    }
+    $('.toast').toast('show');
 }
