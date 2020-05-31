@@ -17,28 +17,28 @@ GS.authToken.then(function setAuthToken(token) {
 
 var wishList = [
     {
-        pName: "Apples",
-        pId: "00012325",
-        quantity: 1,
-        status: "In Progress",
-        description: "",
-        volunteer: "Kevin"
+        ProductName: "Apples",
+        ID: "00012325",
+        Quantity: 1,
+        Status: "In Progress",
+        Description: "",
+        Volunteer: "Kevin"
     },
     {
-        pName: "Oranges",
-        pId: "00012321",
-        quantity: 6,
-        status: "In Need",
-        description: "Bigger one",
-        volunteer: "Kevin"
+        ProductName: "Oranges",
+        ID: "00012321",
+        Quantity: 6,
+        Status: "In Need",
+        Description: "Bigger one",
+        Volunteer: "Kevin"
     },
     {
-        pName: "Bananas",
-        pId: "00012321",
-        quantity: 6,
-        status: "Arrived",
-        description: "Bigger one",
-        volunteer: "Kevin"
+        ProductName: "Bananas",
+        ID: "00012321",
+        Quantity: 6,
+        Status: "Arrived",
+        Description: "Bigger one",
+        Volunteer: "Kevin"
     }
 ];
 
@@ -70,17 +70,14 @@ function addProduct() {
         }
         data.push(product);
     }
-    console.log(authToken);
-    console.log(_config.api.invokeUrl);
+    
     $.ajax({
-        type: 'POST',
-        url: 'https://kcjihhoe69.execute-api.us-east-1.amazonaws.com/latest/test',
-        crossDomain: true,
+        method: 'POST',
+        url: _config.api.invokeUrl + '/add-products',
         headers: {
-            Authorization: authToken,
-            'Access-Control-Allow-Origin': '*',
+            Authorization: authToken
         },
-        data: data,
+        data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(response) {
             console.log(response);
@@ -94,28 +91,28 @@ function addProduct() {
     });
 }
 
-function requestUnicorn() {
-    $.ajax({
-        method: 'POST',
-        url: _config.api.invokeUrl + '/ride',
-        headers: {
-            "content-type": "application/json; charset=UTF-8"
-        },
-        data: JSON.stringify({
-            PickupLocation: {
-                Latitude: 20.1234,
-                Longitude: 120.1234
-            }
-        }),
-        contentType: 'application/json',
-        success: function(){ console.log("success")},
-        error: function ajaxError(jqXHR, textStatus, errorThrown) {
-            console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-            console.error('Response: ', jqXHR.responseText);
-            alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-        }
-    });
-}
+// function requestUnicorn() {
+//     $.ajax({
+//         method: 'POST',
+//         url: _config.api.invokeUrl + '/ride',
+//         headers: {
+//             "content-type": "application/json; charset=UTF-8"
+//         },
+//         data: JSON.stringify({
+//             PickupLocation: {
+//                 Latitude: 20.1234,
+//                 Longitude: 120.1234
+//             }
+//         }),
+//         contentType: 'application/json',
+//         success: function(){ console.log("success")},
+//         error: function ajaxError(jqXHR, textStatus, errorThrown) {
+//             console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
+//             console.error('Response: ', jqXHR.responseText);
+//             alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+//         }
+//     });
+// }
 
 
 
@@ -165,45 +162,54 @@ function confirmProduct() {
 function getCurrentWishListData(){
     $.ajax({
         async: true,
-        crossDomain: true,
-        method: 'POST',
-        url: _config.api.invokeUrl + '/getCurrentWishList',
+        method: 'GET',
+        url: _config.api.invokeUrl + '/wish-list',
         headers: {
             Authorization: authToken
         },
-        'Access-Control-Allow-Origin': '*',
         success: function(response) {
-            console.log(response);
             wishList = response;
             displayCurrentList(wishList);
-      },
+        },
+        error: function ajaxError(jqXHR, textStatus, errorThrown) {
+            console.error('Error requesting add product: ', textStatus, ', Details: ', errorThrown);
+            console.error('Response: ', jqXHR.responseText);
+        }
     });
 }
 
 function displayCurrentList(productData){
     var output = [];
+    var item = '';
+    console.log(productData);
 
     for(var i=0; i<productData.length; i++){
         item = '<tr>' +
-        '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
-            '<td>'+ productData[i].pName + '</td>' +
-            '<td>'+productData[i].quantity + '</td>';
-        if(productData[i].status == "In Progress")
-            item += '<td><span class="badge badge-pill badge-warning">' + productData[i].status + '</span></td>';
-        else if(productData[i].status == "In Need")
-            item += '<td><span class="badge badge-pill badge-info">' + productData[i].status + '</span></td>';
-        else if(productData[i].status == "Arrived")
-            item += '<td><span class="badge badge-pill badge-success">' + productData[i].status + '</span></td>';
+            '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
+            '<td>'+ productData[i].ProductName + '</td>' +
+            '<td>'+productData[i].Quantity + '</td>';
+        console.log(item);
+        if(productData[i].Status === "In Progress") {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAa");
+            item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
+        }
+        else if(productData[i].Status === "In Need")
+            item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
+        else if(productData[i].Status === "Arrived")
+            item += '<td><span class="badge badge-pill badge-success">' + productData[i].Status + '</span></td>';
         else
             continue;
+        console.log(item);
         item += 
-            '<td>'+ productData[i].description +'</td>' +
-            '<td>'+ productData[i].volunteer + '</td>' +
-            '<td scope="col" style="display: none">'+ productData[i].pId +'</td>'
+            '<td>'+ productData[i].Description +'</td>' +
+            '<td>'+ productData[i].Volunteer + '</td>' +
+            '<td scope="col" style="display: none">'+ productData[i].ID.toString() +'</td>'
         '</tr>';
+        console.log(item);
         output.push(item);
     }
     // finally combine our output list into one string of html and put it on the page
+    console.log(output);
     $('#myCurrentListTable').empty();
     $('#myCurrentListTable').append(output);
 }
