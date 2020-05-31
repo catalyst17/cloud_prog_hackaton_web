@@ -3,7 +3,7 @@
 var GS = window.GS || {};
 GS.map = GS.map || {};
 
-(function rideScopeWrapper($) {
+(function locationScopeWrapper($) {
     var authToken;
     GS.authToken.then(function setAuthToken(token) {
         if (token) {
@@ -69,33 +69,32 @@ GS.map = GS.map || {};
             });
         }
 
-        // $.ajax({
-        //     method: 'POST',
-        //     url: _config.api.invokeUrl + '/ride',
-        //     headers: {
-        //         Authorization: authToken
-        //     },
-        //     data: JSON.stringify({
-        //         PickupLocation: {
-        //             Latitude: newLocation.latitude,
-        //             Longitude: newLocation.longitude
-        //         }
-        //     }),
-        //     contentType: 'application/json',
-        //     success: console.log("suc"),
-        //     error: function ajaxError(jqXHR, textStatus, errorThrown) {
-        //         console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
-        //         console.error('Response: ', jqXHR.responseText);
-        //         alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
-        //     }
-        // });
+        $.ajax({
+            method: 'POST',
+            url: _config.api.invokeUrl + '/update-location',
+            headers: {
+                Authorization: authToken
+            },
+            data: JSON.stringify({
+                NewLocation: {
+                    Latitude: newLocation.latitude,
+                    Longitude: newLocation.longitude
+                }
+            }),
+            contentType: 'application/json',
+            success: console.log("successfully updated in the db"),
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error('Error updating db: ', textStatus, ', Details: ', errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+            }
+        });
     }
 
     function completeUpdate(result) {
         console.log('Location updated');
         animateUpdate(function animateCallback() {
             displayUpdate('You have updated your location!');
-            setTimeout(() => {  window.location.href = 'unicorns.html'; }, 1000);
+            setTimeout(() => {  window.location.href = 'userPage.html'; }, 1000);
             GS.map.unsetLocation();
             $('#request').prop('disabled', 'disabled');
             $('#request').text('Select location');
