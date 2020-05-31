@@ -100,7 +100,7 @@ function deleteProduct() {
     var data = checkProduct('#myCurrentListTable');
     $.ajax({
         method: 'POST',
-        url: _config.api.invokeUrl + '/deleteProduct',
+        url: _config.api.invokeUrl + '/delete-products',
         headers: {
             Authorization: authToken
         },
