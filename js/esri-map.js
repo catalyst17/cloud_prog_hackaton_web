@@ -18,12 +18,12 @@ GS.map = GS.map || {};
         Graphic, Point, TextSymbol,
         PictureMarkerSymbol, webMercatorUtils
     ) {
-        var wrMap = GS.map;
+        var gsMap = GS.map;
 
         var map = new Map({ basemap: 'gray-vector' });
 
         var view = new MapView({
-            center: [-122.31, 47.60],
+            center: [121.00, 24.79],
             container: 'map',
             map: map,
             zoom: 12
@@ -38,17 +38,17 @@ GS.map = GS.map || {};
             }
         });
 
-        var unicornSymbol = new PictureMarkerSymbol({
-            url: '/images/unicorn-icon.png',
-            width: '25px',
-            height: '25px'
+        var locationSymbol = new PictureMarkerSymbol({
+            url: '/images/location-icon.png',
+            width: '50px',
+            height: '50px'
         });
 
         var pinGraphic;
         var unicornGraphic;
 
         function updateCenter(newValue) {
-            wrMap.center = {
+            gsMap.center = {
                 latitude: newValue.latitude,
                 longitude: newValue.longitude
             };
@@ -57,7 +57,7 @@ GS.map = GS.map || {};
         function updateExtent(newValue) {
             var min = webMercatorUtils.xyToLngLat(newValue.xmin, newValue.ymin);
             var max = webMercatorUtils.xyToLngLat(newValue.xmax, newValue.ymax);
-            wrMap.extent = {
+            gsMap.extent = {
                 minLng: min[0],
                 minLat: min[1],
                 maxLng: max[0],
@@ -73,17 +73,17 @@ GS.map = GS.map || {};
         });
 
         view.on('click', function handleViewClick(event) {
-            wrMap.selectedPoint = event.mapPoint;
+            gsMap.selectedPoint = event.mapPoint;
             view.graphics.remove(pinGraphic);
             pinGraphic = new Graphic({
                 symbol: pinSymbol,
-                geometry: wrMap.selectedPoint
+                geometry: gsMap.selectedPoint
             });
             view.graphics.add(pinGraphic);
-            $(wrMap).trigger('pickupChange');
+            $(gsMap).trigger('locationChange');
         });
 
-        wrMap.animate = function animate(origin, dest, callback) {
+        gsMap.animate = function animate(origin, dest, callback) {
             var startTime;
             var step = function animateFrame(timestamp) {
                 var progress;
@@ -103,7 +103,7 @@ GS.map = GS.map || {};
                 view.graphics.remove(unicornGraphic);
                 unicornGraphic = new Graphic({
                     geometry: point,
-                    symbol: unicornSymbol
+                    symbol: locationSymbol
                 });
                 view.graphics.add(unicornGraphic);
                 if (progressPct < 1) {
@@ -115,7 +115,7 @@ GS.map = GS.map || {};
             requestAnimationFrame(step);
         };
 
-        wrMap.unsetLocation = function unsetLocation() {
+        gsMap.unsetLocation = function unsetLocation() {
             view.graphics.remove(pinGraphic);
         };
     });

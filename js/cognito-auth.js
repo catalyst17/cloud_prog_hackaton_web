@@ -65,11 +65,21 @@ var GS = window.GS || {};
             Name: 'custom:line_id',
             Value: line_id
         };
+        var dataLatitude = {
+            Name: 'custom:latitude',
+            Value: null
+        };
+        var dataLongtitude = {
+            Name: 'custom:longtitude',
+            Value: null
+        };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
         var attributeName = new AmazonCognitoIdentity.CognitoUserAttribute(dataName);
         var attributeLineId = new AmazonCognitoIdentity.CognitoUserAttribute(dataLineId);
+        var attributeLatitude = new AmazonCognitoIdentity.CognitoUserAttribute(dataLatitude);
+        var attributeLongtitude = new AmazonCognitoIdentity.CognitoUserAttribute(dataLongtitude);
 
-        userPool.signUp(toUsername(email), password, [attributeEmail, attributeName, attributeLineId], null,
+        userPool.signUp(toUsername(email), password, [attributeEmail, attributeName, attributeLineId, attributeLatitude, attributeLongtitude], null,
             function signUpCallback(err, result) {
                 if (!err) {
                     onSuccess(result);
