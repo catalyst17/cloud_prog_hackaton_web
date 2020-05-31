@@ -50,48 +50,85 @@
                         </tr>
                       </thead>
                       <tbody id="myCurrentListTable">
-                        <tr>
-                            <td>
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input checkProduct" id="exampleCheck1">
-                                </div>
-                            </td>
-                            <td>Apple</td>
-                            <td>1</td>
-                            <td><span class="badge badge-pill badge-warning">In Progress</span></td>
-                            <td></td>
-                            <td>Kuo</td>
-                        </tr>
                       </tbody>
                     </table>
-                    <button type="button" class="btn btn-secondary">Remove</button>
+                    <button type="button" class="btn btn-success" id="confirmProductBtn">Confirm</button>
+                    <button type="button" class="btn btn-secondary" id="removeProductBtn">Remove</button>
                   </div>
                 </div>
-                <div>
+                <div class="fix-panel">
                     <h4>Add New Product to the List</h4>
                     <form>
                         <div class="form-row">
                           <div class="col-md-4">
                             <label for="inputEmail4">Product Name</label>
-                            <input type="text" class="form-control" placeholder="ex. Apple">
                           </div>
                           <div class="col-md-1">
                             <label for="inputEmail4">Quantity</label>
-                            <input type="text" class="form-control" placeholder="0">
                           </div>
-                          <div class="col-md-7">
+                          <div class="col-md-6">
                             <label for="inputEmail4">Description</label>
-                            <input type="text" class="form-control" placeholder="">
                           </div>
+                        </div>
+                        <div class="row-wrapper">
+                            <div class="form-row product-row">
+                                <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="ex. Apple" name="pName">
+                                </div>
+                                <div class="col-md-1">
+                                <input type="text" class="form-control" placeholder="0" name="quantity">
+                                </div>
+                                <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="" name="description">
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn inline-button" onclick="addListRow()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn inline-button"  onclick="deleteListRow(this)"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <button class="btn btn-primary" id="addProductBtn">Add To List</button>
                 </div>
           </div>
-          
+          <!-- <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                <i class="fa fa-commenting" aria-hidden="true"></i>
+              <strong class="mr-auto">Rating Reminder</strong>
+              <small></small>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="toast-body">
+                <p><a class="name" href="#">Kuo</a> help you buying stuff! Don't forget to give a rating and feedback! Next time you can give him/her a help!</p>
+                <div class='rating-stars'>
+                    <ul id='stars'>
+                      <li class='star' title='Very Bad' data-value='1'>
+                        <i class='fa fa-star'></i>
+                      </li>
+                      <li class='star' title='Bad' data-value='2'>
+                        <i class='fa fa-star'></i>
+                      </li>
+                      <li class='star' title='Normal' data-value='3'>
+                        <i class='fa fa-star'></i>
+                      </li>
+                      <li class='star' title='Good' data-value='4'>
+                        <i class='fa fa-star'></i>
+                      </li>
+                      <li class='star' title='Very Good' data-value='5'>
+                        <i class='fa fa-star'></i>
+                      </li>
+                    </ul>
+                </div>
+                <textarea class="form-control" id="feedbackText" placeholder="Write some feedback to thank he/she!" style="margin-bottom: 10px"></textarea>
+                <button type="button" class="btn btn-primary" id="submitFeedbackBtn" onclick="submitFeedback()">Submit</button>
+            </div>
+          </div> -->
       </div>
       
   </div>
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="js/jq.multiinput.min.js"></script>

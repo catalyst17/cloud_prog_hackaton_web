@@ -1,12 +1,61 @@
 .container {
     padding: 2rem 0rem;
-  }
+}
   
-  h4 {
+h4 {
     margin: 2rem 0rem 1rem;
+}
+  
+.table-image td, .table-image th {
+    vertical-align: middle;
+}
+/*# sourceMappingURL=main.css.map */
+.inline-button{
+    padding: 0;
+}
+
+.product-row{
+    margin-bottom: 10px;
+}
+
+.fa-commenting{ 
+    color: dodgerblue;
+    margin-right: 5px;
+}
+
+/* Rating Star Widgets Style */
+.rating-stars{
+    display: block;
+    /* vertical-align: middle; */
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+  .rating-stars ul {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+    display: inline;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+  }
+  .rating-stars ul > li.star {
+    display:inline-block;
+    
   }
   
-  .table-image td, .table-image th {
-    vertical-align: middle;
+  /* Idle State of the stars */
+  .rating-stars ul > li.star > i.fa {
+    font-size: 1em; /* Change the size of the stars */
+    color:#ccc; /* Color on idle state */
   }
-  /*# sourceMappingURL=main.css.map */
+  
+  /* Hover state of the stars */
+  .rating-stars ul > li.star.hover > i.fa {
+    color: lightblue;
+    cursor: pointer;
+  }
+  
+  /* Selected state of the stars */
+  .rating-stars ul > li.star.selected > i.fa {
+    color: dodgerblue;
+  }

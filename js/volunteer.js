@@ -7,11 +7,11 @@ GS.authToken.then(function setAuthToken(token) {
     if (token) {
         authToken = token;
     } else {
-        // window.location.href = '/signin.html';
+        window.location.href = '/signin.html';
     }
 }).catch(function handleTokenError(error) {
     alert(error);
-    // window.location.href = '/signin.html';
+    window.location.href = '/signin.html';
 });
 
 var shoppingList = [
@@ -119,26 +119,6 @@ function getAllWishListData(){
     });
 }
 
-function selectProductToShoppingList(){
-    var data = checkProduct();
-
-    $.ajax({
-        async: true,
-        crossDomain: true,
-        method: 'POST',
-        url: _config.api.invokeUrl + '/getCurrentVolunteerShoppingList',
-        headers: {
-            Authorization: authToken
-        },
-        'Access-Control-Allow-Origin': '*',
-        data: data,
-        success: function(response) {
-            console.log(response);
-            displayCurrentList(response);
-      }
-    });
-}
-
 function updateCurrentShoppingList(productData){
     var output = '<tr>' +
             '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct" id="exampleCheck1"></div></td>' +
@@ -161,7 +141,6 @@ function displayCurrentShoppingList(productData){
     for(var i=0; i<productData.length; i++){
         var item = "";
         for(var i=0; i<productData.length; i++){
-            console.log(productData[i].pId);
             item = '<tr>' +
                 '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
                 '<td>'+productData[i].pName + '</td>' +
@@ -193,8 +172,17 @@ function displayAllWishList(productData){
                 '<td>'+productData[i].quantity + '</td>' +
                 '<td>'+productData[i].userName + '</td>' +
                 '<td>'+productData[i].location + '</td>' +
-                '<td>'+productData[i].distance + '</td>' +
-                '<td><span class="badge badge-pill">'+productData[i].status + '</span></td>' +
+                '<td>'+productData[i].distance + '</td>';
+
+            if(productData[i].status == "In Progress")
+                item += '<td><span class="badge badge-pill badge-warning">' + productData[i].status + '</span></td>';
+            else if(productData[i].status == "In Need")
+                item += '<td><span class="badge badge-pill badge-info">' + productData[i].status + '</span></td>';
+            else if(productData[i].status == "Arrived")
+                item += '<td><span class="badge badge-pill badge-success">' + productData[i].status + '</span></td>';
+            else
+                continue;
+            item += 
                 '<td>'+ productData[i].description +'</td>' +
                 '<td scope="col" style="display: none">'+ productData[i].pId +'</td>'
             '</tr>';
@@ -242,6 +230,7 @@ function completeProductFromShoppingList(){
         success: function(response) {
             console.log(response);
             displayCurrentList(response);
+            // TODO: ask rating
       }
     });
 }
