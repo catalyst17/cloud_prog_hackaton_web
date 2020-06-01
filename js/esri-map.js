@@ -26,7 +26,7 @@ GS.map = GS.map || {};
             center: [121.00, 24.79],
             container: 'map',
             map: map,
-            zoom: 17
+            zoom: 13
         });
 
         var pinSymbol = new TextSymbol({

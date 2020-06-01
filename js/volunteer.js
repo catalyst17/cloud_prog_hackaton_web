@@ -125,7 +125,20 @@ function displayCurrentShoppingList(productData){
                 '<td>'+productData[i].ProductName + '</td>' +
                 '<td>'+productData[i].Quantity + '</td>' +
                 '<td>'+productData[i].Username + '</td>' +
-                '<td>'+ productData[i].Description +'</td>' +
+                '<td>'+ productData[i].Description +'</td>';
+                
+            if(productData[i].Status === "In progress")
+                item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
+            else if(productData[i].Status === "In need")
+                item += '<td><span class="badge badge-pill badge-info">' + productData[i].Status + '</span></td>';
+            else if(productData[i].Status === "Ready")
+                item += '<td><span class="badge badge-pill badge-success">' + productData[i].Status + '</span></td>';
+            else if(productData[i].Status === "Confirmed")
+                item += '<td><span class="badge badge-pill badge-light">' + productData[i].Status + '</span></td>';
+            else
+                continue;
+
+            item +=
                 '<td>'+ productData[i].UserLINE +'</td>' +
                 '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
@@ -148,8 +161,8 @@ function displayAllWishList(productData){
                 '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct" id="exampleCheck1"></div></td>' +
                 '<td>'+productData[i].ProductName + '</td>' +
                 '<td>'+productData[i].Quantity + '</td>' +
-                '<td>'+productData[i].Username + '<small>(<i class="fa fa-star" style="color: orange"></i>'+ productData[i].Rating +')</small></td>' +
-                '<td>'+productData[i].Distance + '</td>' + 
+                '<td>'+productData[i].Username + '<small>(<i class="fa fa-star" style="color: orange"></i>'+ productData[i].Rating.toFixed(2) +')</small></td>' +
+                '<td>'+productData[i].Distance.toFixed(3) + '</td>' + 
                 '<td>'+ productData[i].Description +'</td>' +
                 '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
@@ -188,6 +201,7 @@ function deleteProductFromShoppingList(){
         success: function(response) {
             console.log(response);
             getCurrentVolunteerShoppingListData();
+            getAllWishListData();
       }
     });
 }
