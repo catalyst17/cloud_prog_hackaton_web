@@ -126,7 +126,7 @@ function displayCurrentShoppingList(productData){
                 '<td>'+productData[i].Quantity + '</td>' +
                 '<td>'+productData[i].Username + '</td>' +
                 '<td>'+ productData[i].Description +'</td>' +
-                '<td>'+ productData[i].LineId +'</td>' +
+                '<td>'+ productData[i].UserLINE +'</td>' +
                 '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
             output.push(item);
