@@ -23,7 +23,7 @@ GS.map = GS.map || {};
         var map = new Map({ basemap: 'gray-vector' });
 
         var view = new MapView({
-            center: [121.00, 24.79],
+            center: [120.991943, 24.795771],
             container: 'map',
             map: map,
             zoom: 17
