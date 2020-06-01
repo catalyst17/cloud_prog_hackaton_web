@@ -215,18 +215,17 @@ function takeProductToShoppingList(){
     var data = checkProduct('#wishListTable');
     console.log(data);
     $.ajax({
-        async: true,
-        crossDomain: true,
         method: 'POST',
-        url: _config.api.invokeUrl + '/takeProductToShoppingList',
+        url: _config.api.invokeUrl + '/take-products-to-shopping-list',
         headers: {
             Authorization: authToken
         },
-        'Access-Control-Allow-Origin': '*',
         data: JSON.stringify(data),
         success: function(response) {
             console.log(response);
-            displayCurrentList(response);
+            getCurrentVolunteerShoppingListData();
+            
+            // displayCurrentShoppingList(response);
       }
     });
 }
