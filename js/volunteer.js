@@ -84,6 +84,7 @@ function getCurrentVolunteerShoppingListData(){
         success: function(response) {
             console.log(response);
             shoppingList = response;
+            // get line ID
             displayCurrentShoppingList(shoppingList);
         },
         error: function ajaxError(jqXHR, textStatus, errorThrown) {
@@ -91,6 +92,8 @@ function getCurrentVolunteerShoppingListData(){
             console.error('Response: ', jqXHR.responseText);
         }
     });
+
+    
 }
 
 function getAllWishListData(){
@@ -117,13 +120,13 @@ function displayCurrentShoppingList(productData){
     for(var i=0; i<productData.length; i++){
         var item = "";
         for(var i=0; i<productData.length; i++){
-            // TODO: display line id
             item = '<tr>' +
                 '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
                 '<td>'+productData[i].ProductName + '</td>' +
                 '<td>'+productData[i].Quantity + '</td>' +
                 '<td>'+productData[i].Username + '</td>' +
                 '<td>'+ productData[i].Description +'</td>' +
+                '<td>'+ productData[i].LineId +'</td>' +
                 '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
             output.push(item);
@@ -151,7 +154,6 @@ function displayAllWishList(productData){
                 '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
 
-            //TODO: add rating
             // if(productData[i].Status === "In progress")
             //     item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
             // else if(productData[i].Status === "In need")
@@ -185,7 +187,7 @@ function deleteProductFromShoppingList(){
         data: JSON.stringify(data),
         success: function(response) {
             console.log(response);
-            displayCurrentShoppingList(response);
+            getCurrentVolunteerShoppingListData();
       }
     });
 }

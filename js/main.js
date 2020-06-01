@@ -40,6 +40,36 @@ $(document).ready(function () {
 
 var userInfo = {};
 
+function getUserLineIdCognito(email){
+  var cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser != null) {
+    cognitoUser.getSession(function(err, session) {
+        if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+        }
+        console.log('session validity: ' + session.isValid());
+ 
+        // NOTE: getSession must be called to authenticate user before calling getUserAttributes
+        cognitoUser.getUserAttributes(function(err, attributes) {
+            if (err) {
+                console.log(err);
+            } else {
+                userInfo = {
+                  "name": attributes[4].Value,
+                  "email": attributes[6].Value,
+                  "custom:longtitude": attributes[2].Value,
+                  "custom:latitude": attributes[3].Value,
+                  "custom:line_id": attributes[5].Value
+                }
+                console.log(userInfo);
+                displayUserInfo();
+            }
+        });
+    });
+  }
+}
+
 function getUserInfoFromCognito(){
   var cognitoUser = userPool.getCurrentUser();
   if (cognitoUser != null) {
