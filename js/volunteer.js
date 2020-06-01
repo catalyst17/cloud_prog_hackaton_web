@@ -227,6 +227,7 @@ function takeProductToShoppingList(){
             console.log(response);
             getCurrentVolunteerShoppingListData();
             //TODO: update view of the wish-list by removing checked things (not to make time-consuming api call to retrieve the whole updated list back)
+            getAllWishListData();
             // displayCurrentShoppingList(response);
       }
     });
