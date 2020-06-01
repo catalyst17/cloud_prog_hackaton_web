@@ -117,6 +117,7 @@ function displayCurrentShoppingList(productData){
     for(var i=0; i<productData.length; i++){
         var item = "";
         for(var i=0; i<productData.length; i++){
+            // TODO: display line id
             item = '<tr>' +
                 '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
                 '<td>'+productData[i].pName + '</td>' +
@@ -151,6 +152,7 @@ function displayAllWishList(productData){
                 '<td>'+productData[i].Distance + '</td>';
 
             //TODO: remove status column, here we display only the ones in need
+            // TODO: add rating column
             if(productData[i].Status === "In progress")
                 item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
             else if(productData[i].Status === "In need")

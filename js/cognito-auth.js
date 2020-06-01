@@ -142,7 +142,7 @@ var GS = window.GS || {};
         signin(email, password,
             function signinSuccess() {
                 console.log('Successfully Logged In');
-                window.location.href = 'location.html'; //TODO where?
+                window.location.href = 'location.html'; 
             },
             function signinError(err) {
                 alert(err);
