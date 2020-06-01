@@ -117,12 +117,13 @@ function displayCurrentShoppingList(productData){
     for(var i=0; i<productData.length; i++){
         var item = "";
         for(var i=0; i<productData.length; i++){
-            // TODO: display line id
             item = '<tr>' +
                 '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
                 '<td>'+productData[i].ProductName + '</td>' +
                 '<td>'+productData[i].Quantity + '</td>' +
                 '<td>'+productData[i].Username + '</td>' +
+                '<td>'+ productData[i].Description +'</td>' +
+                // TODO: line ID
                 '<td>'+ productData[i].Description +'</td>' +
                 '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
