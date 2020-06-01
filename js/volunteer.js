@@ -226,6 +226,12 @@ function takeProductToShoppingList(){
         success: function(response) {
             console.log(response);
             getCurrentVolunteerShoppingListData();
+<<<<<<< HEAD
+            //TODO: update view of the wish-list by removing checked things (not to make time-consuming api call to retrieve the whole updated list back)
+            getAllWishListData();
+            // displayCurrentShoppingList(response);
+=======
+>>>>>>> add96be37f1900d2feecc13b6c1d6405850c153d
       }
     });
 }
