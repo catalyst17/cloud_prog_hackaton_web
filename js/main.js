@@ -74,6 +74,23 @@ function displayUserInfo(){
   $('#username').html(userInfo.name);
 }
 
+function getUserInfoFromTable(email){
+  $.ajax({
+    async: true,
+    crossDomain: true,
+    method: 'POST',
+    url: _config.api.invokeUrl + '/user-info-query',
+    headers: {
+        Authorization: authToken
+    },
+    'Access-Control-Allow-Origin': '*',
+    data: JSON.stringify(email),
+    success: function(response) {
+        console.log(response);
+    }
+  });
+}
+
 // select all checked products
 function checkProduct(container){
     var checkList = $(container + ' .checkProduct:checkbox:checked');
