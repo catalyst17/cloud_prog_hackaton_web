@@ -67,3 +67,16 @@ h4 {
   .sketch > img{
       height: 320px;
   } 
+
+.logo{
+  color: #007bff;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+}
+.logo:hover{
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-decoration: none;
+}
