@@ -119,13 +119,13 @@ function displayCurrentShoppingList(productData){
         for(var i=0; i<productData.length; i++){
             item = '<tr>' +
                 '<td><div class="form-group form-check"><input type="checkbox" class="form-check-input checkProduct"></div></td>' +
-                '<td>'+productData[i].pName + '</td>' +
-                '<td>'+productData[i].quantity + '</td>' +
-                '<td>'+productData[i].userName + '</td>' +
+                '<td>'+productData[i].ProductName + '</td>' +
+                '<td>'+productData[i].Quantity + '</td>' +
+                '<td>'+productData[i].Username + '</td>' +
                 '<td>'+productData[i].location + '</td>' +
                 '<td>'+productData[i].distance + '</td>' +
-                '<td>'+ productData[i].description +'</td>' +
-                '<td scope="col" style="display: none">'+ productData[i].pId +'</td>'
+                '<td>'+ productData[i].Description +'</td>' +
+                '<td scope="col" style="display: none">'+ productData[i].ID +'</td>'
             '</tr>';
             output.push(item);
         }
@@ -150,7 +150,7 @@ function displayAllWishList(productData){
                 '<td>'+productData[i].Location + '</td>' +
                 '<td>'+productData[i].Distance + '</td>';
 
-            //TODO: remove status column, here we display only the ones in need
+            //TODO: add rating & remove status column, here we display only the ones in need
             if(productData[i].Status === "In progress")
                 item += '<td><span class="badge badge-pill badge-warning">' + productData[i].Status + '</span></td>';
             else if(productData[i].Status === "In need")
