@@ -21,3 +21,5 @@ Project was started as AWS Serverless Web Application using:
 
 Simplified architecture of the system:
 ![#Architecture graph](images/architecture.png)
+
+This repo contained frontend only, but Python code for serverless operations has been added to [/lambda](/lambda) for the completeness.
