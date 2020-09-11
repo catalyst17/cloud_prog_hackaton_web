@@ -11,3 +11,13 @@ Our system has been created during pandemic. However, it will have no less use i
 Free & community-based alternative to the developing contactless deliveries is needed to make our lives better :)
 
 Since the system was designed and created during two-days hackathon, there's only web interface available for now. Plans are to become user-friendly by working on a decent design along with mobile apps.
+
+Project was started as AWS Serverless Web Application using:
+- AWS Lambda
+- Amazon Cognito
+- Amazon API Gateway
+- Amazon DynamoDB
+- Amazon Simple Notification Service
+
+Simplified architecture of the system:
+![#Architecture graph](images/architecture.png)
