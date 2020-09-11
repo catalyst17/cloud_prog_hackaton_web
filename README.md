@@ -10,7 +10,7 @@ The only profit volunteers gain is the upgrade of their rating based on referenc
 Our system has been created during pandemic. However, it will have no less use in the post-pandemic world too: mindset of people has changed, irrelevance of making unneccessary contacs has become justified.
 Free & community-based alternative to the developing contactless deliveries is needed to make our lives better :)
 
-Since the system was designed and created during two-days hackathon, there's only web interface available for now. Plans are to become user-friendly by working on a decent design along with mobile apps.
+Since the system was designed and created during two-days hackathon event of Cloud Programming course (NTHU, Taiwan), there's only web interface available for now. Plans are to become user-friendly by working on a decent design along with mobile apps.
 
 Project was started as AWS Serverless Web Application using:
 - AWS Lambda
