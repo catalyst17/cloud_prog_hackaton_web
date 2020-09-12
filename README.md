@@ -12,14 +12,14 @@ Free & community-based alternative to the developing contactless deliveries is n
 
 Since the system was designed and created during two-days hackathon event of Cloud Programming course (NTHU, Taiwan), there's only web interface available for now. Plans are to become user-friendly by working on a decent design along with mobile apps.
 
-Project was started as AWS Serverless Web Application using:
+### Project was started as AWS Serverless Web Application using:
 - AWS Lambda
 - Amazon Cognito
 - Amazon API Gateway
 - Amazon DynamoDB
 - Amazon Simple Notification Service
 
-Simplified architecture of the system:
+### Simplified architecture of the system:
 ![#Architecture graph](images/architecture.png)
 
 This repo contained frontend only, but Python code for serverless operations has been added to [/lambda](/lambda) for the completeness.
