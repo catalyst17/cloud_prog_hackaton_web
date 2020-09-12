@@ -1,6 +1,6 @@
 # #NeighborCanHelp - anti pandemic response to the challenges of isolation
 ![#NeighborCanHelp logo](images/logo.png)
-## The idea has been created with the eye on the Couchsurfing system, where people are able to help each other without making any material profit
+## The idea has been formed with the eye on the Couchsurfing system, where people are able to help each other without making any material profit
 
 Everyone in the system can be both a volunteer or a one in need. Being able to see what people around you, *your neighbors*, need when you're shopping you can choose the items that you can grab for them.
 The type of items is not limited at all: people make request for the things they want and then it's only their neigbors who decide, are they able to buy it or not.
